@@ -1,0 +1,39 @@
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: var(--s2);
+  padding-bottom: var(--s2);
+}
+.left  { display: flex; flex-direction: column; gap: 6px; }
+.pill  {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--color-primary-pale);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--r-pill);
+  padding: 4px 10px; width: fit-content;
+}
+.pillDot  { width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
+.pillText { font-size: 11px; font-weight: 600; color: var(--color-primary); letter-spacing: .01em; }
+.title    { font-size: var(--font-h2); font-weight: 700; color: var(--color-text-primary); letter-spacing: -.02em; }
+.meta     { font-size: 12px; color: var(--color-text-tertiary); }
+
+.right       { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.pct         { font-size: 32px; font-weight: 700; color: var(--color-primary); letter-spacing: -.03em; line-height: 1; }
+.pctLabel    { font-size: 11px; color: var(--color-text-tertiary); font-weight: 500; }
+
+.progressTrack {
+  height: 3px; background: var(--color-divider);
+  position: relative; overflow: hidden;
+}
+.progressFill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--color-primary);
+  border-radius: 0 2px 2px 0;
+  transition: width .6s ease;
+}

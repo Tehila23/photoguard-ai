@@ -1,0 +1,43 @@
+.cell {
+  aspect-ratio: 1;
+  border-radius: var(--r-thumb);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  transition: border-color .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.cell:active { transform: scale(.97); }
+
+/* ── selected: blue border, slight dim ── */
+.selected { border: 2px solid var(--color-primary); }
+.selected .bg { filter: brightness(.94); }
+
+.bg {
+  position: absolute; inset: 0;
+  transition: filter .15s;
+}
+
+/* ── centered image placeholder icon ── */
+.imgIcon {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+
+/* ── check circle — top left ── */
+.check {
+  position: absolute; top: 6px; left: 6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid rgba(148,163,184,.55);
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, border-color .15s;
+}
+.checkOn {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}

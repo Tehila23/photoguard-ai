@@ -1,0 +1,63 @@
+/* ── header right ── */
+.allBtn {
+  font-size: 14px; font-weight: 500;
+  color: var(--color-primary); cursor: pointer;
+  background: none; border: none; padding: 0;
+}
+
+/* ── selected counter bar ── */
+.counterBar {
+  background: var(--color-primary-pale);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--r-sm);
+  padding: 12px var(--s2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.counterLeft  { display: flex; align-items: center; gap: 8px; }
+.counterDot   { width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0; }
+.counterText  { font-size: 14px; font-weight: 600; color: var(--color-primary); }
+.counterTotal { font-size: 13px; color: var(--color-text-secondary); }
+
+/* ── month sections ── */
+.section { display: flex; flex-direction: column; gap: 10px; }
+.sectionLabel {
+  font-size: 11px; font-weight: 600;
+  color: var(--color-text-tertiary);
+  letter-spacing: .07em; text-transform: uppercase;
+  padding-left: 2px;
+}
+
+/* ── photo grid — tighter and balanced ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+/* ── bottom confirmation bar ── */
+.bottomBar {
+  position: fixed;
+  bottom: 64px; left: 0; right: 0;
+  max-width: 430px; margin: 0 auto;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--s2) var(--s2) var(--s2);
+  display: flex; flex-direction: column; gap: var(--s1);
+  /* subtle top shadow for elevation */
+  box-shadow: 0 -4px 16px rgba(0,0,0,.06);
+}
+.bottomRow {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.bottomCount {
+  font-size: 13px; font-weight: 500;
+  color: var(--color-text-secondary);
+}
+.clearBtn {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+}

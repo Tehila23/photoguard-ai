@@ -1,0 +1,22 @@
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  padding: var(--s2);
+  box-shadow: var(--shadow-card);
+  display: flex; flex-direction: column; gap: var(--s1);
+}
+.top { display: flex; align-items: center; justify-content: space-between; }
+.icon { font-size: 20px; line-height: 1; }
+.badge {
+  font-size: 9px; font-weight: 700;
+  border-radius: var(--r-badge);
+  padding: 3px 7px; letter-spacing: .03em; text-transform: uppercase;
+}
+.blue   { background: var(--color-primary-pale); color: var(--color-primary); border: 1px solid var(--color-primary-border); }
+.red    { background: var(--color-red-pale);     color: var(--color-red);     border: 1px solid var(--color-red-border); }
+
+.num    { font-size: var(--font-h1); font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.03em; line-height: 1; }
+.label  { font-size: var(--font-body); font-weight: 500; color: var(--color-text-secondary); }
+.divider { height: 1px; background: var(--color-divider); }
+.link   { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--color-primary); }
