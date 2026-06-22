@@ -41,8 +41,8 @@ Photo galleries become crowded with duplicates, screenshots, low-quality shots, 
 
 ## Links
 
-- Live Vercel URL: `https://your-vercel-url.vercel.app`
-- GitHub Repository: `https://github.com/your-username/photoguard-ai`
+- Live Vercel URL: https://photoguard-ai.vercel.app
+- GitHub Repository: https://github.com/Tehila23/photoguard-ai
 
 ## Tech Stack
 
