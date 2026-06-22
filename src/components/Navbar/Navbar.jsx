@@ -1,25 +1,26 @@
+import { useNavigate } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 import styles from './Navbar.module.css'
 
-export default function Navbar({ title = 'PhotoGuard AI', showBack = false, onBack, rightContent }) {
+export default function Navbar({ title, subtitle, showBack, onBack, rightContent }) {
+  const navigate = useNavigate()
+  const handleBack = onBack || (() => navigate(-1))
+
   return (
     <header className={styles.navbar}>
       <div className={styles.left}>
-        {showBack ? (
-          <button className={styles.backBtn} onClick={onBack}>‹ Back</button>
-        ) : (
-          <div className={styles.brand}>
-            <div className={styles.brandMark}>
-              <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
-                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-              </svg>
-            </div>
-            <span className={styles.brandName}>{title}</span>
-          </div>
+        {showBack && (
+          <button className={styles.backBtn} onClick={handleBack}>
+            <ArrowLeft size={18} color="#0D0D1A" />
+          </button>
         )}
-        {showBack && <span className={styles.pageTitle}>{title}</span>}
+      </div>
+      <div className={styles.center}>
+        {title && <h1 className={styles.title}>{title}</h1>}
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
       <div className={styles.right}>
-        {rightContent ?? <div className={styles.avatar}>S</div>}
+        {rightContent}
       </div>
     </header>
   )

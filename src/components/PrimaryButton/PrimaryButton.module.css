@@ -1,30 +1,47 @@
 .btn {
   width: 100%;
-  border: none; cursor: pointer;
-  border-radius: var(--r-btn);
-  padding: 15px var(--s3);
-  display: flex; align-items: center; justify-content: center; gap: var(--s1);
-  font-size: var(--font-h3);
+  height: 54px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #6C47FF, #4C2FE0);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 28px rgba(108, 71, 255, 0.38);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
   letter-spacing: -0.01em;
-  transition: opacity .15s;
 }
-.btn:active { opacity: .88; }
 
-.primary {
-  background: var(--color-primary);
-  color: white;
-  box-shadow: var(--shadow-btn);
+.btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 14px rgba(108, 71, 255, 0.22);
 }
-.danger {
-  background: var(--color-red);
-  color: white;
-  box-shadow: 0 4px 16px rgba(239,68,68,.3);
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
 }
-.ghost {
+
+.btn.ghost {
   background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+  border: 2px solid #6C47FF;
+  color: #6C47FF;
   box-shadow: none;
 }
-.disabled { opacity: .5; cursor: not-allowed; }
+
+.btn.danger {
+  background: linear-gradient(135deg, #FF4F4F, #C0392B);
+  box-shadow: 0 8px 28px rgba(255, 79, 79, 0.35);
+}
+
+.btn.success {
+  background: linear-gradient(135deg, #00BFA5, #009688);
+  box-shadow: 0 8px 28px rgba(0, 191, 165, 0.3);
+}

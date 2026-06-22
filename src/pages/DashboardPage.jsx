@@ -1,130 +1,165 @@
 import { useNavigate } from 'react-router-dom'
+import { Badge, Button } from '@mantine/core'
+import { motion } from 'framer-motion'
+import {
+  Archive,
+  BarChart3,
+  ChevronRight,
+  Eye,
+  Heart,
+  ScanSearch,
+  Settings,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react'
 import BottomNav from '../components/BottomNav/BottomNav.jsx'
-import styles    from './DashboardPage.module.css'
+import { useMemoryShieldPreferences } from '../hooks/useMemoryShieldPreferences'
+import '../styles/globals.css'
+import styles from './DashboardPage.module.css'
+
+const PROTECTED_LABELS = {
+  family: 'Family photos',
+  wedding: 'Wedding photos',
+  pets: 'Pet memories',
+  travel: 'Travel memories',
+  documents: 'Documents',
+  favorites: 'Favorites',
+}
+
+const STATS = [
+  { label: 'Protected', value: 124, Icon: ShieldCheck, color: '#12A594', path: '/shield' },
+  { label: 'Review', value: 89, Icon: Eye, color: '#6472E8', path: '/analysis' },
+  { label: 'Safe', value: 273, Icon: Archive, color: '#C98A19', path: '/review' },
+]
+
+const SHORTCUTS = [
+  { label: 'Memories', path: '/memories', Icon: Heart },
+  { label: 'Insights', path: '/insights', Icon: BarChart3 },
+  { label: 'Settings', path: '/settings', Icon: Settings },
+]
+
+const up = (delay = 0) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.42, delay, ease: [0.22, 1, 0.36, 1] },
+})
 
 export default function DashboardPage() {
   const navigate = useNavigate()
+  const { preferences } = useMemoryShieldPreferences()
+  const protectedCategories = preferences
+      .map(id => PROTECTED_LABELS[id])
+      .filter(Boolean)
+      .slice(0, 4)
 
   return (
     <div className="app-shell">
-
-      {/* ── NAVBAR ── */}
-      <header className={styles.navbar}>
-        <div className={styles.brand}>
-          <div className={styles.brandMark}>
-            <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
-              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-            </svg>
-          </div>
-          <span className={styles.brandName}>PhotoGuard AI</span>
-        </div>
-        <div className={styles.avatar}>S</div>
-      </header>
-
-      <main className={styles.body}>
-
-        {/* ── HERO STATUS CARD ── */}
-        <div className={styles.heroCard}>
-          <div className={styles.heroGlow} />
-          <div className={styles.heroTop}>
-            <div className={styles.heroPill}>
-              <span className={styles.heroPillDot} />
-              Cleanup needed
+      <main className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.brand}>
+            <div className={styles.brandMark}>
+              <Sparkles size={19} />
             </div>
-            <div className={styles.heroRight}>
-              <span className={styles.heroPct}>38%</span>
-              <span className={styles.heroPctLbl}>cleaned</span>
+            <div>
+              <h1>PhotoGuard AI</h1>
+              <p>Protect meaningful photos before cleanup.</p>
             </div>
           </div>
-          <div className={styles.heroTitle}>3,812 photos</div>
-          <div className={styles.heroMeta}>Last scan · 2 days ago</div>
-          <div className={styles.progressTrack}>
-            <div className={styles.progressFill} />
-          </div>
-        </div>
+          <div className={styles.avatar}>T</div>
+        </header>
 
-        {/* ── STAT CARDS ── */}
-        <div className={styles.statRow}>
-          <div className={styles.statCard} onClick={() => navigate('/analysis')}>
-            <div className={styles.statTop}>
-              <div className={`${styles.statIconWrap} ${styles.iconBlue}`}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round">
-                  <path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/>
-                  <path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/>
-                </svg>
-              </div>
-              <span className={`${styles.statBadge} ${styles.badgeBlue}`}>Review</span>
-            </div>
-            <div className={styles.statNum}>89</div>
-            <div className={styles.statLbl}>Duplicates</div>
-            <div className={styles.statDivider}/>
-            <div className={styles.statLink}>View all <span>›</span></div>
+        <motion.section {...up()} className={styles.hero}>
+          <div className={styles.heroVisual}>
+            <div className={styles.heroTileLarge} />
+            <div className={styles.heroTileWarm} />
+            <div className={styles.heroTileCool} />
           </div>
 
-          <div className={styles.statCard} onClick={() => navigate('/review')}>
-            <div className={styles.statTop}>
-              <div className={`${styles.statIconWrap} ${styles.iconRed}`}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="var(--color-red)" strokeWidth="2" strokeLinecap="round">
-                  <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
-                  <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
-                </svg>
-              </div>
-              <span className={`${styles.statBadge} ${styles.badgeRed}`}>Approve</span>
-            </div>
-            <div className={styles.statNum}>273</div>
-            <div className={styles.statLbl}>To delete</div>
-            <div className={styles.statDivider}/>
-            <div className={styles.statLink}>View all <span>›</span></div>
+          <div className={styles.heroContent}>
+            <Badge className={styles.heroBadge} leftSection={<ShieldCheck size={12} />} radius="xl">
+              Memory Shield active
+            </Badge>
+            <h2>Clean your gallery. Keep every memory.</h2>
+            <p>PhotoGuard protects meaningful photos before suggesting cleanup.</p>
+            <Button
+              className={styles.heroCta}
+              leftSection={<ScanSearch size={18} />}
+              radius="lg"
+              onClick={() => navigate('/select-photos')}
+            >
+              Run Smart Scan
+            </Button>
           </div>
-        </div>
+        </motion.section>
 
-        {/* ── FLAGGED PREVIEW ── */}
-        <div className={styles.flaggedSection}>
-          <div className={styles.flaggedHeader}>
-            <span className={styles.sectionEyebrow}>Flagged photos</span>
-            <button className={styles.sectionLink} onClick={() => navigate('/select-photos')}>
-              362 total →
+        <motion.section {...up(0.05)} className={styles.statsGrid} aria-label="Key stats">
+          {STATS.map(({ label, value, Icon, color, path }) => (
+            <button
+              key={label}
+              type="button"
+              className={styles.statCard}
+              style={{ '--stat-color': color }}
+              onClick={() => navigate(path)}
+              aria-label={`Open ${label}`}
+            >
+              <Icon size={17} />
+              <strong>{value}</strong>
+              <span>{label}</span>
             </button>
+          ))}
+        </motion.section>
+
+        <motion.section {...up(0.09)} className={styles.shieldPreview}>
+          <div className={styles.sectionTop}>
+            <div>
+              <span>Smart Memory Shield</span>
+              <h2>Protected categories</h2>
+            </div>
+            <Badge className={styles.softBadge} radius="xl">
+              {protectedCategories.length} active
+            </Badge>
           </div>
-          <div className={styles.thumbRow}>
-            {[
-              { tag:'DUP',  label:'Duplicate' },
-              { tag:'BLUR', label:'Blurry' },
-              { tag:'SCRN', label:'Screenshot' },
-              { tag:'LOW',  label:'Low quality' },
-            ].map(({ tag, label }) => (
-              <div key={tag} className={styles.thumbCard}>
-                <div className={styles.thumbImg} />
-                <div className={styles.thumbMeta}>
-                  <span className={styles.thumbTag}>{tag}</span>
-                  <span className={styles.thumbLbl}>{label}</span>
-                </div>
-              </div>
+
+          {protectedCategories.length > 0 ? (
+            <div className={styles.chipRow}>
+              {protectedCategories.map(label => (
+                <span key={label} className={styles.memoryChip}>
+                  <ShieldCheck size={13} />
+                  {label}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className={styles.emptyText}>No protected categories yet.</p>
+          )}
+
+          <Button
+            className={styles.secondaryButton}
+            radius="lg"
+            rightSection={<ChevronRight size={15} />}
+            onClick={() => navigate('/shield')}
+          >
+            Customize protection
+          </Button>
+        </motion.section>
+
+        <motion.section {...up(0.12)} className={styles.explore}>
+          <div className={styles.exploreLabel}>Explore more</div>
+          <div className={styles.exploreRow}>
+            {SHORTCUTS.map(({ label, path, Icon }) => (
+              <button
+                key={path}
+                type="button"
+                className={styles.exploreButton}
+                onClick={() => navigate(path)}
+                aria-label={`Open ${label}`}
+              >
+                <Icon size={17} />
+                <span>{label}</span>
+              </button>
             ))}
           </div>
-        </div>
-
-        {/* ── CTA ── */}
-        <div className={styles.ctaWrap}>
-          <button className={styles.cta} onClick={() => navigate('/select-photos')}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="white" strokeWidth="2.2" strokeLinecap="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            Start New Scan
-          </button>
-          <p className={styles.ctaNote}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-              stroke="var(--color-text-tertiary)" strokeWidth="2" strokeLinecap="round">
-              <rect x="3" y="11" width="18" height="11" rx="2"/>
-              <path d="M7 11V7a5 5 0 0110 0v4"/>
-            </svg>
-            Nothing deleted without your approval
-          </p>
-        </div>
-
+        </motion.section>
       </main>
 
       <BottomNav />

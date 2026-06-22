@@ -1,0 +1,230 @@
+.page {
+  min-height: 100vh;
+  padding: 52px 20px 112px;
+  background:
+    radial-gradient(circle at 70% -10%, rgba(72, 199, 217, 0.08), transparent 30%),
+    linear-gradient(180deg, #fbfaf6, #f8f5ef);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.header h1,
+.heroCopy h2,
+.sectionHeader h2 {
+  margin: 0;
+  color: #111827;
+  font-family: var(--font-ui);
+  font-weight: 720;
+  letter-spacing: 0;
+}
+
+.header h1 {
+  font-size: 22px;
+}
+
+.header p {
+  margin: 3px 0 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+.backButton {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  color: #25314a;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(17, 24, 39, 0.075);
+}
+
+.memoryHero,
+.section {
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(17, 24, 39, 0.075);
+  box-shadow: 0 16px 38px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.heroVisual {
+  position: relative;
+  height: 220px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(145deg, #8ec5ff 0%, #f7c8a9 48%, #5364d6 100%);
+}
+
+.heroVisual::after {
+  content: "";
+  position: absolute;
+  inset: auto -24px -34px -24px;
+  height: 124px;
+  background: linear-gradient(145deg, rgba(18, 165, 148, 0.72), rgba(39, 50, 68, 0.62));
+  clip-path: polygon(0 72%, 18% 32%, 34% 58%, 52% 18%, 72% 62%, 88% 30%, 100% 72%, 100% 100%, 0 100%);
+}
+
+.heroBadge {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1;
+  color: #127c73;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(18, 165, 148, 0.16);
+  backdrop-filter: blur(16px);
+}
+
+.heroCopy {
+  padding: 18px;
+}
+
+.heroCopy h2 {
+  font-size: 23px;
+}
+
+.heroCopy p {
+  margin: 7px 0 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+.heroCopy span {
+  display: inline-block;
+  margin-top: 12px;
+  color: #127c73;
+  font-size: 12px;
+  font-weight: 680;
+}
+
+.section {
+  padding: 18px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.sectionHeader span {
+  color: #6472e8;
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sectionHeader h2 {
+  margin-top: 5px;
+  font-size: 19px;
+}
+
+.sectionHeader svg {
+  color: #6472e8;
+}
+
+.accordion {
+  display: grid;
+  gap: 9px;
+}
+
+.accordionItem {
+  overflow: hidden;
+  border-radius: 17px;
+  background: #fffefa;
+  border: 1px solid rgba(17, 24, 39, 0.065);
+}
+
+.accordionControl {
+  min-height: 50px;
+  color: #111827;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 720;
+}
+
+.accordionChevron {
+  color: #6472e8;
+}
+
+.accordionPanel {
+  padding: 0;
+}
+
+.accordionContent {
+  padding: 0 11px 12px;
+}
+
+.memoryList {
+  display: grid;
+  gap: 8px;
+}
+
+.memoryRow {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid rgba(17, 24, 39, 0.055);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #25314a;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 620;
+  text-align: left;
+}
+
+.memoryRow svg:first-child {
+  color: #b84a5f;
+}
+
+.memoryRow svg:last-child {
+  color: #9aa3b2;
+}
+
+.archiveGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.archiveCard {
+  min-height: 92px;
+  padding: 13px;
+  border: 1px solid rgba(17, 24, 39, 0.065);
+  background: #fffefa;
+}
+
+.archiveCard strong,
+.archiveCard span {
+  display: block;
+}
+
+.archiveCard strong {
+  color: #111827;
+  font-size: 24px;
+  font-weight: 760;
+  line-height: 1;
+}
+
+.archiveCard span {
+  margin-top: 9px;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 620;
+}
+
+.blue { background: #f3f5ff; }
+.cyan { background: #eefbfb; }
+.green { background: #edf8f5; }

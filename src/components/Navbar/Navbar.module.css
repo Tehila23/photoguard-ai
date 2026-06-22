@@ -1,47 +1,87 @@
 .navbar {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-divider);
-  padding: var(--s1) var(--s3) var(--s2);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: 54px 20px 16px;
+  background: transparent;
 }
 
-.left { display: flex; align-items: center; gap: var(--s1); }
-.right { display: flex; align-items: center; }
-
-.brand { display: flex; align-items: center; gap: var(--s1); }
-.brandMark {
-  width: 30px; height: 30px;
-  background: var(--color-primary);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.brandName {
-  font-size: var(--font-h3);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
+.left {
+  width: 40px;
+  height: 40px;
 }
 
 .backBtn {
-  background: none; border: none; cursor: pointer;
-  font-size: 15px; font-weight: 500;
-  color: var(--color-primary); padding: 0;
-}
-.pageTitle {
-  font-size: var(--font-h3);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin-left: var(--s1);
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: var(--surface, #fff);
+  border: 1px solid rgba(108, 71, 255, 0.1);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(108, 71, 255, 0.08);
+  transition: background 0.15s;
 }
 
-.avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 600; color: white;
+.backBtn:active {
+  background: #F0ECFF;
+}
+
+.center {
+  text-align: center;
+  flex: 1;
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0D0D1A;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #9898BB;
+  margin-top: 1px;
+  font-weight: 500;
+}
+
+.right {
+  width: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+/* Final polish */
+.navbar {
+  padding: 52px 20px 15px;
+}
+
+.backBtn {
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(17, 24, 39, 0.075);
+  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.backBtn:active {
+  background: #eef2ff;
+}
+
+.title {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  font-weight: 680;
+  color: #111827;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  color: #98a1b3;
+  font-weight: 520;
 }

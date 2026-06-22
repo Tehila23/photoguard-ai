@@ -1,0 +1,226 @@
+.page {
+  min-height: 100vh;
+  padding: 52px 20px 112px;
+  background:
+    radial-gradient(circle at 72% -12%, rgba(18, 165, 148, 0.1), transparent 30%),
+    linear-gradient(180deg, #fbfaf6, #f8f5ef);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.header h1,
+.hero h2,
+.sectionHeader h2 {
+  margin: 0;
+  color: #111827;
+  font-family: var(--font-ui);
+  font-weight: 720;
+  letter-spacing: 0;
+}
+
+.header h1 {
+  font-size: 22px;
+}
+
+.header p,
+.hero p {
+  margin: 3px 0 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.backButton {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  color: #25314a;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(17, 24, 39, 0.075);
+}
+
+.hero,
+.section {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(17, 24, 39, 0.075);
+  box-shadow: 0 16px 38px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.heroIcon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.1);
+  border: 1px solid rgba(18, 165, 148, 0.14);
+}
+
+.heroBadge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.09);
+  border: 1px solid rgba(18, 165, 148, 0.13);
+}
+
+.hero h2 {
+  margin-top: 16px;
+  font-size: 24px;
+}
+
+.inlineError {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  color: #94364b;
+  background: rgba(184, 74, 95, 0.08);
+  border: 1px solid rgba(184, 74, 95, 0.12);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.sectionHeader span {
+  color: #6472e8;
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sectionHeader h2 {
+  margin-top: 5px;
+  font-size: 19px;
+}
+
+.selectedList {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.selectedItem {
+  min-height: 50px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: 16px;
+  background: #fffefa;
+  border: 1px solid rgba(17, 24, 39, 0.065);
+}
+
+.selectedItem span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.09);
+}
+
+.selectedItem strong {
+  color: #111827;
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.selectedItem small {
+  color: #127c73;
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.emptyState {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  color: #667085;
+  background: #fffefa;
+  border: 1px dashed rgba(100, 114, 232, 0.22);
+}
+
+.emptyState svg {
+  color: #6472e8;
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.preferenceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.preferenceChip {
+  min-height: 82px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: start;
+  padding: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.075);
+  border-radius: 18px;
+  background: #fffefa;
+  color: #111827;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 660;
+  text-align: left;
+}
+
+.preferenceChip svg:first-child {
+  color: #6472e8;
+}
+
+.preferenceChipActive {
+  background: linear-gradient(180deg, #ffffff, #edf8f5);
+  border-color: rgba(18, 165, 148, 0.28);
+  box-shadow: 0 10px 22px rgba(18, 165, 148, 0.1);
+}
+
+.preferenceChipActive svg:last-child {
+  justify-self: end;
+  color: #127c73;
+}
+
+.primaryButton,
+.secondaryButton {
+  height: 48px;
+  font-family: var(--font-ui);
+  font-weight: 680;
+}
+
+.primaryButton {
+  color: white;
+  background: linear-gradient(135deg, #6472e8, #5364d6);
+}
+
+@media (max-width: 360px) {
+  .preferenceGrid {
+    grid-template-columns: 1fr;
+  }
+}

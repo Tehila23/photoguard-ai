@@ -1,0 +1,272 @@
+.page {
+  min-height: 100vh;
+  padding: 52px 18px 112px;
+  background:
+    radial-gradient(circle at 76% -12%, rgba(72, 199, 217, 0.09), transparent 30%),
+    radial-gradient(circle at 12% -6%, rgba(100, 114, 232, 0.08), transparent 34%),
+    linear-gradient(180deg, #fbfaf6 0%, #f8f5ef 100%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.brandIcon,
+.sectionIcon,
+.rowIcon,
+.safetyIcon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.brandIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 17px;
+  color: white;
+  background: linear-gradient(135deg, #6472e8, #48c7d9);
+  box-shadow: 0 12px 28px rgba(83, 100, 214, 0.2);
+}
+
+.header h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 24px;
+  font-weight: 740;
+  line-height: 1.1;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: #667085;
+  font-size: 13px;
+  font-weight: 480;
+}
+
+.accountCard,
+.sectionCard,
+.safetyCard {
+  margin-top: 14px;
+  padding: 17px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(17, 24, 39, 0.075);
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.065), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.accountCard {
+  margin-top: 0;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-weight: 740;
+  background: linear-gradient(135deg, #6472e8, #b84a5f);
+}
+
+.accountCard h2,
+.sectionCard h2,
+.safetyCard h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 17px;
+  font-weight: 690;
+  line-height: 1.2;
+}
+
+.accountLine {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #667085;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.connectedBadge {
+  height: 28px;
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.09);
+  border: 1px solid rgba(18, 165, 148, 0.12);
+  font-size: 10px;
+  font-weight: 720;
+}
+
+.logoutButton {
+  height: 32px;
+  padding: 0 10px;
+  color: #5364d6;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 680;
+}
+
+.sectionHead {
+  margin-bottom: 15px;
+}
+
+.sectionIcon,
+.safetyIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 15px;
+  color: #5364d6;
+  background: #f2f4ff;
+  border: 1px solid rgba(100, 114, 232, 0.1);
+}
+
+.eyebrow,
+.safetyBadge {
+  width: fit-content;
+  margin-bottom: 5px;
+  color: #5364d6;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.settingList {
+  margin-top: 2px;
+}
+
+.settingRow {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 10px;
+  border-radius: 16px;
+  background: #fffefa;
+  border: 1px solid rgba(17, 24, 39, 0.055);
+}
+
+.rowIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 13px;
+  color: #5364d6;
+  background: #f4f6ff;
+}
+
+.rowCopy {
+  min-width: 0;
+}
+
+.rowCopy > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 660;
+}
+
+.rowCopy p,
+.safetyCopy p {
+  margin: 3px 0 0;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 480;
+  line-height: 1.42;
+}
+
+.safetyCard {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 96% -6%, rgba(18, 165, 148, 0.13), transparent 34%),
+    rgba(255, 255, 255, 0.9);
+}
+
+.safetyIcon {
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.1);
+  border-color: rgba(18, 165, 148, 0.12);
+}
+
+.safetyBadge {
+  height: 25px;
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.08);
+  border: 1px solid rgba(18, 165, 148, 0.12);
+}
+
+.safetyCopy {
+  min-width: 0;
+}
+
+.resetButton {
+  align-self: stretch;
+  height: 46px;
+  margin-top: 6px;
+  color: #25314a;
+  background: #f3f5ff;
+  border: 1px solid rgba(100, 114, 232, 0.12);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.resetButton:hover {
+  background: #edf1ff;
+}
+
+@media (max-width: 360px) {
+  .page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .settingRow {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 9px;
+    padding: 9px;
+  }
+}
+/* Expanded Privacy & Safety */
+.safetyList {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.safetyItem {
+  min-height: 40px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: #fffefa;
+  border: 1px solid rgba(17, 24, 39, 0.055);
+}
+
+.safetyItem span {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #127c73;
+  background: rgba(18, 165, 148, 0.09);
+}
+
+.safetyItem p {
+  margin: 0;
+  color: #111827;
+  font-size: 12.5px;
+  font-weight: 620;
+  line-height: 1.3;
+}
