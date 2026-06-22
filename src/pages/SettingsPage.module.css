@@ -71,6 +71,13 @@
   color: white;
   font-weight: 740;
   background: linear-gradient(135deg, #6472e8, #b84a5f);
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .accountCard h2,

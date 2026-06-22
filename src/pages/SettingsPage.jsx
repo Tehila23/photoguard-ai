@@ -54,12 +54,24 @@ function readSettings() {
   }, {})
 }
 
+function getAvatarData(user) {
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.user_metadata?.display_name
+  const fallbackText = displayName || user?.email || ''
+  const image = user?.user_metadata?.avatar_url || user?.user_metadata?.picture
+
+  return {
+    image,
+    initial: fallbackText.trim().charAt(0).toUpperCase() || '?',
+  }
+}
+
 export default function SettingsPage() {
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
   const { resetPreferences } = useMemoryShieldPreferences()
   const [settings, setSettings] = useState(readSettings)
   const [resetDone, setResetDone] = useState(false)
+  const avatar = getAvatarData(user)
 
   useEffect(() => {
     SETTINGS_KEYS.forEach(key => {
@@ -103,7 +115,9 @@ export default function SettingsPage() {
           <Card className={styles.accountCard} radius="xl" shadow="none">
             <Group justify="space-between" align="flex-start" wrap="nowrap">
               <Group gap={12} wrap="nowrap">
-                <div className={styles.avatar}>T</div>
+                <div className={styles.avatar} aria-label="Account avatar">
+                  {avatar.image ? <img src={avatar.image} alt="" /> : avatar.initial}
+                </div>
                 <Stack gap={3}>
                   <h2>Account</h2>
                   <div className={styles.accountLine}><User size={13} /> {user?.user_metadata?.full_name || 'PhotoGuard user'}</div>

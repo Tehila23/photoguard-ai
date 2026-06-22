@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import BottomNav from '../components/BottomNav/BottomNav.jsx'
+import { useAuth } from '../hooks/useAuth.jsx'
 import { useMemoryShieldPreferences } from '../hooks/useMemoryShieldPreferences'
 import '../styles/globals.css'
 import styles from './DashboardPage.module.css'
@@ -44,9 +45,22 @@ const up = (delay = 0) => ({
   transition: { duration: 0.42, delay, ease: [0.22, 1, 0.36, 1] },
 })
 
+function getAvatarData(user) {
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.user_metadata?.display_name
+  const fallbackText = displayName || user?.email || ''
+  const image = user?.user_metadata?.avatar_url || user?.user_metadata?.picture
+
+  return {
+    image,
+    initial: fallbackText.trim().charAt(0).toUpperCase() || '?',
+  }
+}
+
 export default function DashboardPage() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const { preferences } = useMemoryShieldPreferences()
+  const avatar = getAvatarData(user)
   const protectedCategories = preferences
       .map(id => PROTECTED_LABELS[id])
       .filter(Boolean)
@@ -65,7 +79,9 @@ export default function DashboardPage() {
               <p>Protect meaningful photos before cleanup.</p>
             </div>
           </div>
-          <div className={styles.avatar}>T</div>
+          <div className={styles.avatar} aria-label="Account avatar">
+            {avatar.image ? <img src={avatar.image} alt="" /> : avatar.initial}
+          </div>
         </header>
 
         <motion.section {...up()} className={styles.hero}>
