@@ -156,6 +156,7 @@
   border-radius: 16px;
   background: #fffefa;
   border: 1px solid rgba(17, 24, 39, 0.055);
+  cursor: pointer;
 }
 
 .rowIcon {
@@ -186,6 +187,19 @@
   font-size: 12px;
   font-weight: 480;
   line-height: 1.42;
+}
+
+.settingSwitch {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.settingSwitch :global(.mantine-Switch-root) {
+  pointer-events: none;
 }
 
 .safetyCard {

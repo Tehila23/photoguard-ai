@@ -85,7 +85,7 @@ export default function SettingsPage() {
     window.dispatchEvent(new Event('photoguard-settings-change'))
   }, [settings])
 
-  const updateSetting = key => checked => {
+  const updateSetting = (key, checked) => {
     setSettings(prev => ({ ...prev, [key]: checked }))
   }
 
@@ -147,21 +147,24 @@ export default function SettingsPage() {
             title="Mute notifications"
             description="Pause non-essential alerts."
             checked={settings.muteNotifications}
-            onChange={updateSetting('muteNotifications')}
+            onChange={event => updateSetting('muteNotifications', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('muteNotifications', !settings.muteNotifications)}
           />
           <SettingRow
             icon={<CalendarClock size={16} />}
             title="Weekly cleanup reminder"
             description="A gentle nudge to review your gallery."
             checked={settings.weeklyReminder}
-            onChange={updateSetting('weeklyReminder')}
+            onChange={event => updateSetting('weeklyReminder', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('weeklyReminder', !settings.weeklyReminder)}
           />
           <SettingRow
             icon={<FileWarning size={16} />}
             title="Notify before removal"
             description="Always ask before anything is deleted."
             checked={settings.notifyBeforeRemoval}
-            onChange={updateSetting('notifyBeforeRemoval')}
+            onChange={event => updateSetting('notifyBeforeRemoval', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('notifyBeforeRemoval', !settings.notifyBeforeRemoval)}
           />
         </SettingsSection>
 
@@ -176,28 +179,32 @@ export default function SettingsPage() {
             title="Comfort Mode"
             description="Larger text, calmer motion, clearer contrast."
             checked={settings.comfortMode}
-            onChange={updateSetting('comfortMode')}
+            onChange={event => updateSetting('comfortMode', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('comfortMode', !settings.comfortMode)}
           />
           <SettingRow
             icon={<Type size={16} />}
             title="Larger text"
             description="Increase reading size across the app."
             checked={settings.largerText}
-            onChange={updateSetting('largerText')}
+            onChange={event => updateSetting('largerText', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('largerText', !settings.largerText)}
           />
           <SettingRow
             icon={<Contrast size={16} />}
             title="High contrast"
             description="Strengthen text and card boundaries."
             checked={settings.highContrast}
-            onChange={updateSetting('highContrast')}
+            onChange={event => updateSetting('highContrast', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('highContrast', !settings.highContrast)}
           />
           <SettingRow
             icon={<Moon size={16} />}
             title="Reduce motion"
             description="Use calmer transitions where possible."
             checked={settings.reduceMotion}
-            onChange={updateSetting('reduceMotion')}
+            onChange={event => updateSetting('reduceMotion', event.currentTarget.checked)}
+            onRowToggle={() => updateSetting('reduceMotion', !settings.reduceMotion)}
           />
         </SettingsSection>
 
@@ -263,17 +270,18 @@ function SettingsSection({ delay, eyebrow, title, icon, children }) {
   )
 }
 
-function SettingRow({ icon, title, description, checked, onChange }) {
+function SettingRow({ icon, title, description, checked, onChange, onRowToggle }) {
   return (
     <div
       className={styles.settingRow}
-      role="button"
+      role="switch"
+      aria-checked={checked}
       tabIndex={0}
-      onClick={() => onChange(!checked)}
+      onClick={onRowToggle}
       onKeyDown={event => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault()
-          onChange(!checked)
+          onRowToggle()
         }
       }}
     >
@@ -282,13 +290,21 @@ function SettingRow({ icon, title, description, checked, onChange }) {
         <div>{title}</div>
         <p>{description}</p>
       </div>
-      <Switch
-        checked={checked}
-        onChange={event => onChange(event.currentTarget.checked)}
-        onClick={event => event.stopPropagation()}
-        aria-label={title}
-        color="cyan"
-      />
+      <span
+        className={styles.settingSwitch}
+        onClick={event => {
+          event.stopPropagation()
+          onRowToggle()
+        }}
+      >
+        <Switch
+          checked={checked}
+          onChange={onChange}
+          aria-label={title}
+          color="cyan"
+          tabIndex={-1}
+        />
+      </span>
     </div>
   )
 }
