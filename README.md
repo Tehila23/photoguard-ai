@@ -2,9 +2,21 @@
 
 PhotoGuard AI is a mobile-first memory protection assistant for photo cleanup. It helps users review their gallery, identify safe cleanup opportunities, and protect meaningful memories before anything is suggested for removal.
 
+## Screenshots
+
+- Login
+- Dashboard
+- AI Analysis
+- Review
+- Memory Shield
+
 ## Product Overview
 
 PhotoGuard AI is designed around a simple promise: clean your gallery without risking the photos that matter. Instead of behaving like a generic storage cleaner, the app treats memory protection as the first step. Users can sign in, personalize their Smart Memory Shield, review AI-style cleanup suggestions, and keep control before any removal decision feels final.
+
+## AI Features
+
+PhotoGuard AI provides explainable AI-style cleanup recommendations instead of showing opaque delete suggestions. Each reviewed photo can include a Memory Protection Score, concise recommendation text, and reason chips that explain why PhotoGuard suggests keeping or reviewing the photo for cleanup. The workflow is intentionally safety-first: cleanup suggestions are reversible, and the user must approve every removal action before anything is treated as final.
 
 ## Problem Solved
 
@@ -38,6 +50,14 @@ Photo galleries become crowded with duplicates, screenshots, low-quality shots, 
 8. User reviews suggested removals.
 9. Approving removal moves an item into a local cleanup queue with Undo.
 10. User can manage accessibility and app preferences in Settings.
+
+## Agentic AI / MCP
+
+The Insights page includes an AI Agent Activity section inspired by Model Context Protocol (MCP) concepts.
+PhotoGuard AI acts as the host application.
+Its tools include Smart Scan, Cleanup Queue, and Memory Shield preference updates.
+Its resources include Supabase Auth, Database, and Storage.
+Human approval is required before destructive actions, so nothing is deleted automatically.
 
 ## Links
 
@@ -337,10 +357,7 @@ Before deploying:
 
 ## Known Limitations And Future Work
 
-- Real photo upload and cloud storage flow is schema-ready but not fully wired into the UI.
-- AI analysis currently uses demo results rather than a live AI model.
-- Review decisions and cleanup queue have database tables but the visible review flow is currently local/demo.
-- Dashboard statistics are demo values.
-- Memory timeline and insights pages use demo data.
-- Future work should connect photo upload, scan sessions, analysis results, user decisions, and cleanup queue to Supabase end to end.
-- Future work should add production analytics, error monitoring, and more complete accessibility testing.
+- Real photo upload and cloud storage should be fully connected to Supabase Storage.
+- Live AI analysis should replace the current demo recommendation data.
+- Full Supabase integration should connect scan sessions, analysis results, user decisions, and cleanup queue state end to end.
+- Production analytics and monitoring should be added before a real public launch.
