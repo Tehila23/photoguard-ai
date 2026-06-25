@@ -85,8 +85,8 @@ export default function SettingsPage() {
     window.dispatchEvent(new Event('photoguard-settings-change'))
   }, [settings])
 
-  const updateSetting = key => event => {
-    setSettings(prev => ({ ...prev, [key]: event.currentTarget.checked }))
+  const updateSetting = key => checked => {
+    setSettings(prev => ({ ...prev, [key]: checked }))
   }
 
   const resetProtectionPreferences = async () => {
@@ -265,13 +265,30 @@ function SettingsSection({ delay, eyebrow, title, icon, children }) {
 
 function SettingRow({ icon, title, description, checked, onChange }) {
   return (
-    <div className={styles.settingRow}>
+    <div
+      className={styles.settingRow}
+      role="button"
+      tabIndex={0}
+      onClick={() => onChange(!checked)}
+      onKeyDown={event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          onChange(!checked)
+        }
+      }}
+    >
       <div className={styles.rowIcon}>{icon}</div>
       <div className={styles.rowCopy}>
         <div>{title}</div>
         <p>{description}</p>
       </div>
-      <Switch checked={checked} onChange={onChange} aria-label={title} color="cyan" />
+      <Switch
+        checked={checked}
+        onChange={event => onChange(event.currentTarget.checked)}
+        onClick={event => event.stopPropagation()}
+        aria-label={title}
+        color="cyan"
+      />
     </div>
   )
 }
