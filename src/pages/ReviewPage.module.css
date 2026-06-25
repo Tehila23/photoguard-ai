@@ -582,6 +582,11 @@
   box-shadow: 0 16px 42px rgba(17, 24, 39, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.76);
 }
 
+.reviewError {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
 /* Undo safety queue state */
 .queueCounter {
   align-self: flex-start;

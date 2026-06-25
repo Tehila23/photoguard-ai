@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ActionIcon, Badge, Button, Card, Group, Modal, Stack } from '@mantine/core'
+import { ActionIcon, Alert, Badge, Button, Card, Group, Modal, Stack } from '@mantine/core'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Check, Trash2, ShieldCheck, MinusCircle, Image as ImageIcon, RotateCcw, ClipboardCheck, Gauge } from 'lucide-react'
 import BottomNav from '../components/BottomNav/BottomNav.jsx'
+import { useReviewDecisions } from '../hooks/useReviewDecisions'
 import styles from './ReviewPage.module.css'
 
 const PHOTOS = [
@@ -66,7 +67,12 @@ export default function ReviewPage() {
   const [modal, setModal] = useState(false)
   const [dir, setDir] = useState(1)
   const [queuedPhoto, setQueuedPhoto] = useState(null)
-  const [cleanupQueue, setCleanupQueue] = useState([])
+  const {
+    cleanupQueue,
+    error: reviewError,
+    clearError,
+    saveDecision,
+  } = useReviewDecisions(PHOTOS)
 
   const p = PHOTOS[idx]
 
@@ -77,18 +83,32 @@ export default function ReviewPage() {
     else nav('/dashboard')
   }
 
-  const moveToCleanupQueue = () => {
-    setQueuedPhoto(p)
-    setCleanupQueue(queue => (
-      queue.some(item => item.filename === p.filename) ? queue : [...queue, p]
-    ))
-    setModal(false)
+  const keepPhoto = async () => {
+    const { error } = await saveDecision(p, 'keep', p.reason)
+    if (!error) advance(1)
   }
 
-  const undoCleanupQueue = () => {
+  const protectPhoto = async () => {
+    const { error } = await saveDecision(p, 'protected', p.reason)
+    if (!error) advance(1)
+  }
+
+  const moveToCleanupQueue = async () => {
+    clearError()
+    setQueuedPhoto(p)
+    setModal(false)
+
+    const { error } = await saveDecision(p, 'remove', p.reason)
+    if (error) setQueuedPhoto(null)
+  }
+
+  const undoCleanupQueue = async () => {
     if (!queuedPhoto) return
-    setCleanupQueue(queue => queue.filter(item => item.filename !== queuedPhoto.filename))
+    const photoToRestore = queuedPhoto
     setQueuedPhoto(null)
+
+    const { error } = await saveDecision(photoToRestore, 'undo', 'User restored this photo from the cleanup queue.')
+    if (error) setQueuedPhoto(photoToRestore)
   }
 
   return (
@@ -242,6 +262,11 @@ export default function ReviewPage() {
       </main>
 
       <Card className={styles.actionBar} radius="xl" shadow="none">
+        {reviewError && (
+          <Alert className={styles.reviewError} color="red" variant="light">
+            Could not save your review decision. Please try again.
+          </Alert>
+        )}
         {queuedPhoto ? (
           <Stack gap={11}>
             <Badge className={styles.queueCounter} radius="xl" variant="light">
@@ -287,7 +312,7 @@ export default function ReviewPage() {
                 radius="lg"
                 size="md"
                 variant="light"
-                onClick={() => advance(1)}
+                onClick={keepPhoto}
               >
                 Keep
               </Button>
@@ -299,7 +324,7 @@ export default function ReviewPage() {
                   radius="lg"
                   size="md"
                   variant="light"
-                  disabled
+                  onClick={protectPhoto}
                 >
                   Protected
                 </Button>
