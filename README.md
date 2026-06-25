@@ -104,24 +104,126 @@ High-level policy model:
 - `memory_collection_items`: access is allowed only through collections owned by the user.
 - Supabase Storage `photos` bucket: users can access files only inside their own user ID folder.
 
-## ERD Summary
+## ERD
 
 ```mermaid
 erDiagram
-  AUTH_USERS ||--|| PROFILES : owns
-  AUTH_USERS ||--|| MEMORY_SHIELD_PREFERENCES : owns
-  AUTH_USERS ||--o{ PHOTOS : owns
-  AUTH_USERS ||--o{ SCAN_SESSIONS : owns
-  AUTH_USERS ||--o{ USER_DECISIONS : makes
-  AUTH_USERS ||--o{ CLEANUP_QUEUE_ITEMS : queues
-  AUTH_USERS ||--o{ MEMORY_COLLECTIONS : creates
+  AUTH_USERS {
+    uuid id PK
+    text email
+  }
 
-  PHOTOS ||--o{ ANALYSIS_RESULTS : analyzed_as
-  SCAN_SESSIONS ||--o{ ANALYSIS_RESULTS : contains
-  PHOTOS ||--o{ USER_DECISIONS : receives
-  PHOTOS ||--o{ CLEANUP_QUEUE_ITEMS : queued_as
-  MEMORY_COLLECTIONS ||--o{ MEMORY_COLLECTION_ITEMS : contains
-  PHOTOS ||--o{ MEMORY_COLLECTION_ITEMS : appears_in
+  PROFILES {
+    uuid id PK, FK
+    text email
+    text full_name
+    text avatar_url
+    timestamptz created_at
+    timestamptz updated_at
+  }
+
+  MEMORY_SHIELD_PREFERENCES {
+    uuid id PK
+    uuid user_id FK
+    text_array protected_categories
+    timestamptz created_at
+    timestamptz updated_at
+  }
+
+  PHOTOS {
+    uuid id PK
+    uuid user_id FK
+    text file_name
+    text file_path
+    bigint file_size
+    text mime_type
+    integer width
+    integer height
+    jsonb metadata
+    boolean is_deleted
+    timestamptz created_at
+    timestamptz updated_at
+  }
+
+  SCAN_SESSIONS {
+    uuid id PK
+    uuid user_id FK
+    text status
+    integer total_photos
+    integer scanned_photos
+    timestamptz started_at
+    timestamptz completed_at
+    text error_message
+    timestamptz created_at
+    timestamptz updated_at
+  }
+
+  ANALYSIS_RESULTS {
+    uuid id PK
+    uuid photo_id FK
+    uuid session_id FK
+    text risk_level
+    numeric risk_score
+    jsonb findings
+    text model_version
+    integer processing_ms
+    jsonb raw_response
+    timestamptz created_at
+    timestamptz updated_at
+  }
+
+  USER_DECISIONS {
+    uuid id PK
+    uuid user_id FK
+    uuid photo_id FK
+    text decision
+    text note
+    timestamptz decided_at
+    timestamptz created_at
+  }
+
+  CLEANUP_QUEUE_ITEMS {
+    uuid id PK
+    uuid user_id FK
+    uuid photo_id FK
+    text status
+    timestamptz queued_at
+    timestamptz updated_at
+  }
+
+  MEMORY_COLLECTIONS {
+    uuid id PK
+    uuid user_id FK
+    text title
+    text description
+    date memory_date
+    text category
+    boolean is_protected
+    timestamptz created_at
+    timestamptz updated_at
+  }
+
+  MEMORY_COLLECTION_ITEMS {
+    uuid id PK
+    uuid collection_id FK
+    uuid photo_id FK
+    timestamptz created_at
+  }
+
+  AUTH_USERS ||--|| PROFILES : "profile"
+  AUTH_USERS ||--|| MEMORY_SHIELD_PREFERENCES : "memory shield"
+  AUTH_USERS ||--o{ PHOTOS : "uploads"
+  AUTH_USERS ||--o{ SCAN_SESSIONS : "starts"
+  AUTH_USERS ||--o{ USER_DECISIONS : "makes"
+  AUTH_USERS ||--o{ CLEANUP_QUEUE_ITEMS : "queues"
+  AUTH_USERS ||--o{ MEMORY_COLLECTIONS : "creates"
+
+  PHOTOS ||--o{ ANALYSIS_RESULTS : "has analysis"
+  SCAN_SESSIONS ||--o{ ANALYSIS_RESULTS : "produces"
+  PHOTOS ||--o{ USER_DECISIONS : "receives decision"
+  PHOTOS ||--o{ CLEANUP_QUEUE_ITEMS : "queued item"
+  MEMORY_COLLECTIONS ||--o{ MEMORY_COLLECTION_ITEMS : "contains"
+  PHOTOS ||--o{ MEMORY_COLLECTION_ITEMS : "included in"
 ```
 
 ## External Services And Integrations
