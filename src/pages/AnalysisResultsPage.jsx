@@ -22,6 +22,10 @@ const RESULTS = [
     reason: 'Looks nearly identical to 4 other photos from the same moment.',
     status: 'Needs review',
     score: 92,
+    protectionScore: 68,
+    recommendation: 'Safe to review for cleanup',
+    explanation: 'This looks like a low-risk cleanup candidate.',
+    reasons: ['Duplicate detected', 'Similar moment', 'Safe cleanup candidate', 'User approval required'],
     accent: '#6C47FF',
     pale: '#F0ECFF',
     thumbBg: 'linear-gradient(145deg,#6C47FF,#A78BFF)',
@@ -35,6 +39,10 @@ const RESULTS = [
     reason: 'Motion blur was detected. This photo may be safe to remove.',
     status: 'Safe to remove',
     score: 85,
+    protectionScore: 34,
+    recommendation: 'Safe to review for cleanup',
+    explanation: 'This looks like a low-risk cleanup candidate.',
+    reasons: ['Low quality capture', 'Motion blur', 'No faces detected', 'Safe cleanup candidate'],
     accent: '#B83A50',
     pale: '#FFF2F4',
     thumbBg: 'linear-gradient(145deg,#B83A50,#F4899A)',
@@ -48,6 +56,10 @@ const RESULTS = [
     reason: 'Likely an app screenshot that is no longer meaningful.',
     status: 'Safe to remove',
     score: 71,
+    protectionScore: 22,
+    recommendation: 'Safe to review for cleanup',
+    explanation: 'This looks like a low-risk cleanup candidate.',
+    reasons: ['Screenshot', 'Temporary content', 'Low memory value', 'Safe cleanup candidate'],
     accent: '#C27A05',
     pale: '#FFF8E8',
     thumbBg: 'linear-gradient(145deg,#C27A05,#FCD34D)',
@@ -61,6 +73,10 @@ const RESULTS = [
     reason: 'PhotoGuard detected this as a meaningful memory and protected it.',
     status: 'Protected',
     score: 98,
+    protectionScore: 96,
+    recommendation: 'Recommended to keep',
+    explanation: 'This photo may have sentimental value.',
+    reasons: ['Contains people', 'Only copy found', 'High image quality', 'Meaningful event'],
     accent: '#00897B',
     pale: '#E8FAF7',
     thumbBg: 'linear-gradient(145deg,#00897B,#5DE8D5)',
@@ -187,6 +203,30 @@ export default function AnalysisResultsPage() {
                     </div>
 
                     <p className={styles.reason}>{r.reason}</p>
+
+                    <div className={styles.explainPanel}>
+                      <Group justify="space-between" align="center" gap="xs" wrap="nowrap">
+                        <div>
+                          <div className={styles.explainKicker}>Memory Protection Score</div>
+                          <strong>{r.protectionScore}%</strong>
+                        </div>
+                        <Badge
+                          className={styles.recommendationBadge}
+                          radius="xl"
+                          variant="light"
+                          style={{ color: r.accent, background: r.pale }}
+                        >
+                          {r.recommendation}
+                        </Badge>
+                      </Group>
+                      <div className={styles.whyTitle}>Why this recommendation?</div>
+                      <p className={styles.explainText}>{r.explanation}</p>
+                      <div className={styles.reasonChips}>
+                        {r.reasons.map(reason => (
+                          <span key={reason}>{reason}</span>
+                        ))}
+                      </div>
+                    </div>
 
                     <div className={styles.confidenceRow}>
                       <Badge

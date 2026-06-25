@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ActionIcon, Badge, Button, Card, Group, Modal, Stack } from '@mantine/core'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Check, Trash2, ShieldCheck, MinusCircle, Image as ImageIcon, RotateCcw, ClipboardCheck } from 'lucide-react'
+import { ArrowLeft, Check, Trash2, ShieldCheck, MinusCircle, Image as ImageIcon, RotateCcw, ClipboardCheck, Gauge } from 'lucide-react'
 import BottomNav from '../components/BottomNav/BottomNav.jsx'
 import styles from './ReviewPage.module.css'
 
@@ -13,6 +13,10 @@ const PHOTOS = [
     size: '4.2 MB',
     reason: 'Duplicate detected',
     score: 92,
+    protectionScore: 68,
+    finalRecommendation: 'Safe to review for cleanup',
+    explanation: 'This looks like a low-risk cleanup candidate.',
+    reasons: ['Duplicate detected', 'Similar moment', 'Safe cleanup candidate', 'User approval required'],
     bg: 'linear-gradient(145deg,#6C47FF,#A78BFF)',
     note: 'An identical copy of this photo already exists in your library. Safe to remove.',
     accent: '#6C47FF',
@@ -26,6 +30,10 @@ const PHOTOS = [
     size: '2.8 MB',
     reason: 'Motion blur detected',
     score: 85,
+    protectionScore: 34,
+    finalRecommendation: 'Safe to review for cleanup',
+    explanation: 'This looks like a low-risk cleanup candidate.',
+    reasons: ['Low quality capture', 'Motion blur', 'No faces detected', 'Safe cleanup candidate'],
     bg: 'linear-gradient(145deg,#E8445A,#F4899A)',
     note: 'Significant blur was detected. This photo may not be worth keeping.',
     accent: '#B83A50',
@@ -39,6 +47,10 @@ const PHOTOS = [
     size: '5.6 MB',
     reason: 'Protected memory',
     score: 98,
+    protectionScore: 96,
+    finalRecommendation: 'Recommended to keep',
+    explanation: 'This photo may have sentimental value.',
+    reasons: ['Contains people', 'Only copy found', 'High image quality', 'Meaningful event'],
     bg: 'linear-gradient(145deg,#00BFA5,#5DE8D5)',
     note: 'PhotoGuard has identified this as a meaningful memory. Removal is disabled.',
     accent: '#00897B',
@@ -166,6 +178,54 @@ export default function ReviewPage() {
           </motion.div>
         </AnimatePresence>
 
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`why-${idx}`}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.12, duration: 0.28 }}
+          >
+            <Card className={styles.explainCard} radius="xl" shadow="none">
+              <Group justify="space-between" align="flex-start" gap="sm" wrap="nowrap">
+                <div>
+                  <div className={styles.explainTitle}>Why PhotoGuard suggests this</div>
+                  <p>{p.explanation}</p>
+                </div>
+                <span className={styles.explainIcon}>
+                  <Gauge size={17} />
+                </span>
+              </Group>
+
+              <div className={styles.scoreGrid}>
+                <div>
+                  <span>Confidence score</span>
+                  <strong>{p.score}%</strong>
+                </div>
+                <div>
+                  <span>Memory Protection Score</span>
+                  <strong>{p.protectionScore}%</strong>
+                </div>
+              </div>
+
+              <div className={styles.reasonChips}>
+                {p.reasons.map(reason => (
+                  <span key={reason}>{reason}</span>
+                ))}
+              </div>
+
+              <Badge
+                className={styles.finalRecommendation}
+                radius="xl"
+                variant="light"
+                style={{ color: p.accent, background: p.panelBg }}
+              >
+                {p.finalRecommendation}
+              </Badge>
+            </Card>
+          </motion.div>
+        </AnimatePresence>
+
         <div className={styles.dots} aria-label="Review progress">
           {PHOTOS.map((_, i) => (
             <div
@@ -177,7 +237,7 @@ export default function ReviewPage() {
         </div>
 
         <p className={styles.safetyLine}>
-          PhotoGuard AI only suggests cleanup. You choose what stays and what goes.
+          Nothing is deleted automatically. You approve every cleanup action.
         </p>
       </main>
 
