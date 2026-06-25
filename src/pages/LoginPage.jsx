@@ -1,19 +1,24 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import { Alert, Button, PasswordInput, TextInput } from '@mantine/core'
+import { Alert, Button, Modal, PasswordInput, Stack, TextInput } from '@mantine/core'
 import { motion } from 'framer-motion'
-import { LogIn, ShieldCheck, Sparkles } from 'lucide-react'
+import { LogIn, Mail, ShieldCheck, Sparkles } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth.jsx'
 import styles from './AuthPage.module.css'
 
 export default function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, loading, signIn } = useAuth()
+  const { user, loading, signIn, resetPassword } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [resetOpen, setResetOpen] = useState(false)
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetSubmitting, setResetSubmitting] = useState(false)
+  const [resetError, setResetError] = useState('')
+  const [resetSuccess, setResetSuccess] = useState('')
 
   const redirectTo = location.state?.from?.pathname ?? '/dashboard'
 
@@ -35,6 +40,30 @@ export default function LoginPage() {
     }
 
     navigate(redirectTo, { replace: true })
+  }
+
+  const handleResetSubmit = async event => {
+    event.preventDefault()
+    const emailToReset = resetEmail.trim()
+
+    setResetError('')
+    setResetSuccess('')
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailToReset)) {
+      setResetError('Please enter a valid email address.')
+      return
+    }
+
+    setResetSubmitting(true)
+    const { error: resetRequestError } = await resetPassword(emailToReset)
+    setResetSubmitting(false)
+
+    if (resetRequestError) {
+      setResetError(resetRequestError.message || 'We could not send the reset email. Please try again.')
+      return
+    }
+
+    setResetSuccess('Password reset email sent. Please check your inbox.')
   }
 
   return (
@@ -65,6 +94,18 @@ export default function LoginPage() {
             radius="lg"
             autoComplete="current-password"
           />
+          <button
+            className={styles.forgotButton}
+            type="button"
+            onClick={() => {
+              setResetEmail(email)
+              setResetError('')
+              setResetSuccess('')
+              setResetOpen(true)
+            }}
+          >
+            Forgot password?
+          </button>
           <Button
             className={styles.primaryButton}
             type="submit"
@@ -80,6 +121,49 @@ export default function LoginPage() {
           New to PhotoGuard? <Link to="/signup">Create an account</Link>
         </div>
       </motion.section>
+
+      <Modal
+        opened={resetOpen}
+        onClose={() => setResetOpen(false)}
+        centered
+        radius="xl"
+        size="sm"
+        title="Reset your password"
+        classNames={{
+          content: styles.modalContent,
+          header: styles.modalHeader,
+          title: styles.modalTitle,
+          body: styles.modalBody,
+        }}
+      >
+        <form onSubmit={handleResetSubmit}>
+          <Stack gap="sm">
+            <p className={styles.modalText}>
+              Enter your email and PhotoGuard will send a secure reset link.
+            </p>
+            {resetError && <Alert className={styles.alert} color="red" variant="light">{resetError}</Alert>}
+            {resetSuccess && <Alert className={styles.alert} color="teal" variant="light">{resetSuccess}</Alert>}
+            <TextInput
+              label="Email"
+              type="email"
+              value={resetEmail}
+              onChange={event => setResetEmail(event.currentTarget.value)}
+              required
+              radius="lg"
+              autoComplete="email"
+            />
+            <Button
+              className={styles.primaryButton}
+              type="submit"
+              radius="lg"
+              loading={resetSubmitting}
+              leftSection={<Mail size={17} />}
+            >
+              Send reset email
+            </Button>
+          </Stack>
+        </form>
+      </Modal>
     </main>
   )
 }

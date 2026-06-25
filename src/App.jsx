@@ -9,6 +9,7 @@ import MemoriesPage       from './pages/MemoriesPage.jsx'
 import ShieldPage         from './pages/ShieldPage.jsx'
 import InsightsPage       from './pages/InsightsPage.jsx'
 import LoginPage          from './pages/LoginPage.jsx'
+import ResetPasswordPage  from './pages/ResetPasswordPage.jsx'
 import SignupPage         from './pages/SignupPage.jsx'
 import { useAuth } from './hooks/useAuth.jsx'
 
@@ -62,6 +63,7 @@ export default function App() {
     <Routes>
       <Route path="/login"          element={<LoginPage />} />
       <Route path="/signup"         element={<SignupPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/"               element={<Navigate to="/dashboard" replace />} />
       <Route path="/dashboard"      element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/select-photos"  element={<ProtectedRoute><SelectPhotosPage /></ProtectedRoute>} />

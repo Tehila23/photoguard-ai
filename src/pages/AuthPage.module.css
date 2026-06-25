@@ -132,6 +132,23 @@
   background: linear-gradient(135deg, #5c69da, #4d5cc8);
 }
 
+.forgotButton {
+  width: fit-content;
+  justify-self: end;
+  margin-top: -6px;
+  border: 0;
+  background: transparent;
+  color: #5364d6;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.forgotButton:hover {
+  color: #3f4fc0;
+}
+
 .footerText {
   margin-top: 18px;
   color: #667085;
@@ -143,4 +160,32 @@
   color: #5364d6;
   font-weight: 700;
   text-decoration: none;
+}
+
+.modalContent {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(17, 24, 39, 0.075);
+}
+
+.modalHeader {
+  padding: 20px 20px 0;
+}
+
+.modalTitle {
+  color: #111827;
+  font-family: var(--font-ui);
+  font-size: 20px;
+  font-weight: 720;
+}
+
+.modalBody {
+  padding: 14px 20px 20px;
+}
+
+.modalText {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.5;
 }
